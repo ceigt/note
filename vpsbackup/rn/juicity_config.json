@@ -1,0 +1,11 @@
+{
+    "listen": ":10000",
+    "users": {
+        "abc74296-0f55-41b8-be89-64156fcff4ea": "random"
+    },
+    "certificate": "/path/to/xxx.crt",
+    "private_key": "/path/to/xxx.key",
+    "disable_outbound_udp443": true,
+    "congestion_control": "bbr",
+    "log_level": "info"
+}

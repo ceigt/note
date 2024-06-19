@@ -1,0 +1,20 @@
+add table inet wgcf
+flush table inet wgcf
+define routing_id = 3132533
+table inet wgcf {
+    chain output {
+        type filter hook output priority -151; policy accept;
+        ip daddr 162.159.192.9 udp dport 2408 mark 39375 @th,72,24 set $routing_id counter;
+    }
+
+    chain routing {
+        type route hook output priority -150; policy accept;
+        ip saddr != 172.16.0.2 fib saddr type local mark != 39375 counter meta mark set 39375;
+        ip6 saddr != 2606::d9bc:398a fib saddr type local mark != 39375 counter meta mark set 39375;
+    }
+
+    chain input {
+        type filter hook input priority -150; policy accept;
+        ip saddr 162.159.192.9 udp sport 2408 @th,72,24 $routing_id @th,72,24 set 0 counter;
+    }
+}

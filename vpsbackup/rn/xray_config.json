@@ -1,0 +1,101 @@
+{
+  "log": {
+    "loglevel": "warning",
+    "error": "/var/log/xray/error.log",
+    "access": "/var/log/xray/access.log"
+  },
+    "dns": {
+        "servers": ["https+local://1.1.1.1/dns-query","localhost"]
+    },
+    "policy": {
+      "levels": {
+        "0": {
+          "handshake": 7,
+          "connIdle": 420
+             }
+            }
+           },
+    "inbounds": [
+        {
+          "port": 443,
+          "protocol": "vless",
+          "settings": {
+            "clients": [
+              {
+                "id": "idnumber",
+                "level": 0,
+                "flow": "xtls-rprx-vision"
+              }
+            ],
+            "decryption": "none"
+          },
+          "sniffing": {
+           "enabled": true,
+           "destOverride": ["http", "tls"]
+        },
+          "streamSettings": {
+            "network": "tcp",
+            "security": "reality",
+            "realitySettings": {
+              "show": false,
+              "dest": "/dev/shm/xray.sock",
+              "xver": 1,
+              "serverNames": [
+                "www.example.com"
+              ],
+              "privateKey": "privatekeynumber",
+              "shortIds": [
+                ""
+              ]
+            }
+          }
+        }
+      ],
+   "outbounds": [
+    {
+      "tag":"direct",
+      "protocol": "freedom"
+    },
+    {
+      "tag":"IPv6",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIPv6"
+      }
+    },
+    {
+       "tag": "block",
+       "protocol": "blackhole"
+    }
+  ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "ip": ["geoip:telegram"],
+                "outboundTag": "direct"
+            },
+            {
+                "type": "field",
+                "domain": ["geosite:google","geosite:netflix"],
+                "outboundTag": "IPv6"
+            },
+            {
+                "type": "field",
+                "domain": ["geosite:cn","geosite:category-ads-all"],
+                "outboundTag": "block"
+            },
+            {
+                "type": "field",
+                "ip": ["geoip:private","geoip:cn"],
+                "outboundTag": "block"
+            },
+            {
+                "type": "field",
+                "protocol": ["bittorrent"],
+                "outboundTag": "block"
+          }
+      ]
+    }
+}
