@@ -173,15 +173,15 @@ services:
     labels:  
       - com.centurylinklabs.watchtower.enable=false  
 
-8、申请ECC证书，自动续期：  
+8、通过acme.sh申请ECC证书：  
 curl https://get.acme.sh | sh  
 . .bashrc  
 acme.sh --upgrade --auto-upgrade  
 acme.sh --set-default-ca --server letsencrypt  
 export CF_Key="xxxxxxxxxx"  
 export CF_Email="you@email.com"  
-acme.sh --issue --dns dns_cf -d www.example --keylength ec-256 --force  
-acme.sh --install-cert -d www.example --ecc  --fullchain-file ~/certs/example.crt  --key-file ~/certs/example.key  
+acme.sh --issue --dns dns_cf -d www.example.com --keylength ec-256 --force  
+acme.sh --install-cert -d www.example.com --ecc  --fullchain-file ~/certs/example.crt  --key-file ~/certs/example.key  
 
 9、openwrt抓包  
 opkg update  
