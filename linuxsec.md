@@ -17,11 +17,11 @@ passwd admin
 
 如果系统中没有 sudo，需要先安装。
 
-## Debian  
+#### Debian  
 ```
 apt install sudo -y  
 ```
-## Centos  
+#### Centos  
 ```
 yum install sudo -y
 ```
@@ -29,9 +29,9 @@ yum install sudo -y
 ```
 usermod -aG sudo admin
 ```
-如果不想每次进行 sudo 操作时都输入密码，可以进行免密设置，以下任意选一种。
+或者用以下方法：
 
-1、修改 sudo 配置文件(etc/sudoers)
+### 修改 sudo 配置文件(etc/sudoers)
 
 打开 sudo 配置文件
 ```
@@ -41,7 +41,7 @@ visudo
 ```
 admin ALL=(ALL) ALL
 ```
-2、添加配置文件到/etc/sudoers.d/目录中
+### 添加配置文件到/etc/sudoers.d/目录中
 
 这个是系统文档推荐的做法。/etc/sudoers.d/ 目录中的文件相当于是 etc/sudoers 文件的补充。如果你写的配置文件有问题或者是想去除用户的 sudo 权限，直接删除文件即可，不用去修改 /etc/sudoers 文件，不会影响到系统默认配置。
 
