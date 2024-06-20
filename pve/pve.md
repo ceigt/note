@@ -1,17 +1,23 @@
 #### PVE 显卡直通设定：
 ```
 nano /etc/default/grub
-
+```
+```
   GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt"
-
+```
+```
 update-grub
+```
+```
 nano /etc/modules
-
+```
+```
   vfio  
   vfio_iommu_type1  
   vfio_pci  
   vfio_virqfd  
-
+```
+```
 update-initramfs -u -k all   
 reboot
 ```
@@ -22,8 +28,40 @@ reboot
 args: -set device.hostpci0.addr=02.0 -set device.hostpci0.x-igd-gms=0x2 -set device.hostpci0.x-igd-opregion=on  
 legacy-igd=1  
 ```
-具体设置参数可参考pve_win10.conf
-
+具体设置参数可参考以下：
+```
+agent: 1
+args: -set device.hostpci0.addr=02.0 -set device.hostpci0.x-igd-gms=0x2 -set device.hostpci0.x-igd-opregion=on
+bios: ovmf
+boot: order=scsi0;net0
+cores: 4
+cpu: host
+efidisk0: local-lvm:vm-101-disk-0,efitype=4m,pre-enrolled-keys=1,size=4M
+hookscript: local:snippets/hooks-igpupt.pl
+hostpci0: 0000:00:02.0,legacy-igd=1,romfile=gen12_igd.rom
+hostpci1: 0000:00:1f.3,romfile=IntelGopDriver.rom
+hostpci2: 0000:00:14.3
+localtime: 1
+machine: pc-i440fx-8.0
+memory: 8192
+meta: creation-qemu=8.0.2,ctime=1694798637
+name: Win10
+net0: virtio=hw:addr,bridge=vmbr0,firewall=1
+numa: 1
+onboot: 1
+ostype: win10
+scsi0: local-lvm:vm-101-disk-1,iothread=1,size=100G,ssd=1
+scsihw: virtio-scsi-single
+smbios1: uuid=7f0ae1cc-64e2-4313-9963-0434db48afe8
+sockets: 1
+startup: order=4
+tags:  
+usb0: host=1-1,usb3=1
+usb1: host=1-2,usb3=1
+usb2: host=8087:0026,usb3=1
+vga: none
+vmgenid: 4e6d2689-527a-48eb-a89b-35be497e6e58
+```
 #### PVE下KVM虚拟机直通钩子脚本
 ```
 git clone https://github.com/ceigt/pvevm-hooks.git
@@ -57,7 +95,8 @@ qm disk import 100 /var/lib/vz/template/iso/xxx.img local-lvm
 #### lxc特权容器  
 ```
 nano /etc/pve/lxc/100.conf
-
+```
+```
   lxc.cgroup2.devices.allow: c 226:0 rwm  
   lxc.cgroup2.devices.allow: c 226:128 rwm  
   lxc.cgroup2.devices.allow: c 29:0 rwm  
@@ -73,15 +112,19 @@ mkdir /mnt/nas
 ```
 ```
 nano ~/.smbcredentials
-
+```
+```
   username=admin  
   password=xxxxx
 ```
 ```
 nano /etc/fstab
-
-//10.0.0.6/share /mnt/nas cifs credentials=/root/.smbcredentials,iocharset=utf8 0 0  
+```
+```
+//10.0.0.6/share /mnt/nas cifs credentials=/root/.smbcredentials,iocharset=utf8 0 0
+```
 or without passwdfile:  
+```
 //10.0.0.6/shared /mnt/nas cifs username=admin,password=xxxxx,iocharset=utf8 0 0
 ```
 
@@ -93,13 +136,16 @@ sudo sh get-docker.sh
 
 #### 【portainer】 
 ```   
-docker volume create portainer_data  
+docker volume create portainer_data
+```
+```
 docker run -d -p 8000:8000 -p 9000:9000 --name portainer \  
     --restart=always \  
     -v /var/run/docker.sock:/var/run/docker.sock \  
     -v portainer_data:/data \  
     portainer/portainer-ce
-
+```
+```
 docker run -d -p 9443:9443 -p 8000:8000 \  
     --name portainer --restart always \  
     -v /var/run/docker.sock:/var/run/docker.sock \  
@@ -125,7 +171,8 @@ docker run -d \
     -v /mnt/nas/downloads:/downloads \  
     -v /mnt/nas/media:/completed \  
     p3terx/aria2-pro  
-
+```
+```
 docker run -d \  
     --name aria2 \  
     --restart unless-stopped \  
@@ -142,7 +189,9 @@ docker run -d \
     p3terx/aria2-pro
 ```
 ```
-nano /usr/local/bin/aria2/config/script.conf  
+nano /usr/local/bin/aria2/config/script.conf
+```
+```
   dest_dir = /completed
 ```
 
@@ -168,8 +217,9 @@ docker run -dit \
   --hostname qinglong \  
   --restart unless-stopped \  
   whyour/qinglong:latest  
-
-
+```
+docker compose
+```
 version: "3"  
 services:  
   qinglong:  
