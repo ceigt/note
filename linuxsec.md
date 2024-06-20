@@ -75,7 +75,7 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub User@HostName -p Port
 
 > User 为用户名，HostName 为 IP 地址，Port 为端口号。
 
-ssh-copy-id 命令相当于执行了以下复杂的手动操作：
+`ssh-copy-id` 命令相当于执行了以下复杂的手动操作：
 
 复制公钥文件中的内容
 ```
