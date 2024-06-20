@@ -31,7 +31,7 @@ usermod -aG sudo admin
 ```
 或者用以下方法：
 
-### 修改 sudo 配置文件(etc/sudoers)
+### 修改 sudo 配置文件(/etc/sudoers)
 
 打开 sudo 配置文件
 ```
