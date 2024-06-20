@@ -43,7 +43,7 @@ admin ALL=(ALL) ALL
 ```
 ### 添加配置文件到/etc/sudoers.d/目录中
 
-这个是系统文档推荐的做法。/etc/sudoers.d/ 目录中的文件相当于是 etc/sudoers 文件的补充。如果你写的配置文件有问题或者是想去除用户的 sudo 权限，直接删除文件即可，不用去修改 /etc/sudoers 文件，不会影响到系统默认配置。
+这个是系统文档推荐的做法。*/etc/sudoers.d/* 目录中的文件相当于是 */etc/sudoers* 文件的补充。如果你写的配置文件有问题或者是想去除用户的 sudo 权限，直接删除文件即可，不用去修改 */etc/sudoers* 文件，不会影响到系统默认配置。
 
 以授予 admin 这个用户 sudo 权限为例子，在终端中输入以下命令直接添加配置文件：
 ```
@@ -59,21 +59,21 @@ chmod 440 /etc/sudoers.d/admin
 ```
 ## 配置 SSH 密钥登录
 
-使用 ssh-keygen 生成密钥对（私钥和公钥）
+使用 `ssh-keygen` 生成密钥对（私钥和公钥）
 
-在本地终端中执行 ssh-keygen 命令，提示都不用管，一路回车 (Enter)
+在本地终端中执行 `ssh-keygen` 命令，提示都不用管，一路回车 (Enter)
 
-操作完后会在 ~/.ssh 目录中生两个密钥文件，id_rsa 为私钥，id_rsa.pub 为公钥。
+操作完后会在 *~/.ssh* 目录中生两个密钥文件，`id_rsa` 为私钥，`id_rsa.pub` 为公钥。
 
-使用 *ssh-copy-id* 配置公钥
+使用 `ssh-copy-id` 配置公钥
 
 执行以下命令自动将公钥上传并配置到 VPS 上：
 ```
 ssh-copy-id -i ~/.ssh/id_rsa.pub User@HostName -p Port
 ```
--i为指定公钥路径，后面的~/.ssh/id_rsa.pub是公钥路径。
+> -i为指定公钥路径，后面的~/.ssh/id_rsa.pub是公钥路径。
 
-User 为用户名，HostName 为 IP 地址，Port 为端口号。
+> User 为用户名，HostName 为 IP 地址，Port 为端口号。
 
 ssh-copy-id 命令相当于执行了以下复杂的手动操作：
 
@@ -89,7 +89,7 @@ ssh User@HostName -p Port
 ```
 mkdir -p ~/.ssh
 ```
-把公钥文件写入到 ~/.ssh/authorized_keys
+把公钥文件写入到 *~/.ssh/authorized_keys*
 ```
 vim ~/.ssh/authorized_keys
 ```
@@ -98,13 +98,13 @@ vim ~/.ssh/authorized_keys
 chmod 700 ~/.ssh  
 chmod 600 ~/.ssh/authorized_keys
 ```
-所以使用 ssh-copy-id 大大简化了 SSH 密钥的配置过程。
+所以使用 `ssh-copy-id` 大大简化了 SSH 密钥的配置过程。
 
 ## 禁用不安全的登录方式
 
 前面的一系列操作都是铺垫，是为禁止 root 账户登录和密码登录以及修改 SSH 端口做准备，这才是提升 VPS 安全性的主要目的。
 
-打开 sshd 配置文件 (/etc/ssh/sshd_config) 进行修改。
+打开 sshd 配置文件 (*/etc/ssh/sshd_config*) 进行修改。
 ```
 sudo nano /etc/ssh/sshd_config
 ```
