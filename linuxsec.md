@@ -166,3 +166,15 @@ userdel -r admin
 ```
 bash <(curl -fsSL bit.ly/key-sh) -og ceigt -p 2222 -d
 ```
+
+## 通过acme.sh申请ECC证书：
+```  
+curl https://get.acme.sh | sh  
+. .bashrc  
+acme.sh --upgrade --auto-upgrade  
+acme.sh --set-default-ca --server letsencrypt  
+export CF_Key="xxxxxxxxxx"  
+export CF_Email="you@email.com"  
+acme.sh --issue --dns dns_cf -d www.example.com --keylength ec-256 --force  
+acme.sh --install-cert -d www.example.com --ecc  --fullchain-file ~/certs/example.crt  --key-file ~/certs/example.key 
+```
