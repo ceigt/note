@@ -162,9 +162,26 @@ userdel -r admin
 ```
 -r 表示删除用户的同时，将其宿主目录和系统内与其相关的内容删除。
 
-## 配置ssh密钥一键脚本：  
+## 配置ssh密钥一键脚本： 
+## Usage
+
+```
+bash <(curl -fsSL bit.ly/key-sh) [options...] <arg>
+```
+
+## Options
+
+* `-o` - Overwrite mode, this option is valid at the top
+* `-g` - Get the public key from GitHub, the arguments is the GitHub ID
+* `-u` - Get the public key from the URL, the arguments is the URL
+* `-f` - Get the public key from the local file, the arguments is the local file path
+* `-p` - Change SSH port, the arguments is port number
+* `-d` - Disable password login
+
+## e.g
 ```
 bash <(curl -fsSL bit.ly/key-sh) -og ceigt -p 2222 -d
+
 ```
 
 ## 通过acme.sh申请ECC证书：
