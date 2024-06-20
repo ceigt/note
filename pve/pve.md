@@ -251,7 +251,7 @@ services:
 opkg update  
 opkg install tcpdump  
 ```
-在电脑plink文件夹打开cmd执行以下命令 
+在windows系统plink文件夹打开cmd执行以下命令 
 ``` 
 .\plink.exe -batch -ssh -pw Oppasswd root@10.0.0.1 "tcpdump -ni br-lan -s 0 -w - not port 22" | "C:\Program Files\Wireshark\Wireshark.exe" -k -i -
 ```  
