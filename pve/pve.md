@@ -18,7 +18,10 @@ reboot
 
 把两个rom file copy到 /use/share/kvm/
 
-机型必须i440fx，BIOS必须OVMF，具体设置参数可参考101.conf
+机型必须i440fx，BIOS必须OVMF，优化：开启agent，使用localtime，cpu numa  
+args: -set device.hostpci0.addr=02.0 -set device.hostpci0.x-igd-gms=0x2 -set device.hostpci0.x-igd-opregion=on  
+legacy-igd=1  
+具体设置参数可参考pve_win10.conf
 
 2、PVE下KVM虚拟机直通钩子脚本
 
