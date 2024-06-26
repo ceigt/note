@@ -166,7 +166,7 @@ userdel -r admin
 ## Usage
 
 ```
-bash <(curl -fsSL bit.ly/key-sh) [options...] <arg>
+bash <(curl -fsSL url.openet.top/key.sh) [options...] <arg>
 ```
 
 ## Options
@@ -180,7 +180,7 @@ bash <(curl -fsSL bit.ly/key-sh) [options...] <arg>
 
 ## e.g
 ```
-bash <(curl -fsSL bit.ly/key-sh) -og ceigt -p 2222 -d
+bash <(curl -fsSL url.openet.top/key.sh) -og ceigt -p 2222 -d
 
 ```
 
